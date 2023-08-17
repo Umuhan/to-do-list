@@ -10,6 +10,7 @@ body {
   max-width: 500px;
   margin: 0 auto;
   background-color: #fff;
+
   /* padding: 20px; */
   margin-top: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -44,10 +45,7 @@ h1 {
 
 .completed {
   text-decoration: line-through;
-  color: #999;
-}
-
-.not-completed {
+  margin-left: 40px;
   color: #333;
 }
 
@@ -64,12 +62,6 @@ ul li::before {
   left: -20px;
 }
 
-.completed {
-  margin-left: 40px;
-  color: #333;
-  /* font-weight: bold; */
-}
-
 .not-completed {
   margin-left: 40px;
   color: #333;
@@ -77,7 +69,7 @@ ul li::before {
 
 ul li .close {
   position: absolute;
-  right: 0px;
+  right: 0;
   top: 5px;
   color: #000;
   background-color: #f1eeee;
