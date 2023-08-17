@@ -55,7 +55,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- **Live Demo Link** https://umuhan.github.io/to-do-list/
+- **Live Demo Link**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
