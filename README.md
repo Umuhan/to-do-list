@@ -18,7 +18,6 @@
   - [Install](#install)
   - [Usage](#usage)
   - [Run tests](#run-tests)
-  - [Deployment](#triangular_flag_on_post-deployment)
 
 - [👥 Authors](#authors)
 - [🔭 Future Features](#future-features)
@@ -50,12 +49,6 @@
 - **Saves data in local-storage**
 - **Makes a list of Tasks**
 - **Adds and removes a tasks**
-
-<!-- LIVE DEMO -->
-
-## 🚀 Live Demo <a name="live-demo"></a>
-
-- **Live Demo Link**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
