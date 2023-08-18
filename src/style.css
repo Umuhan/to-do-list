@@ -1,0 +1,94 @@
+/* Basic styling for the To Do List */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.list-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  margin-top: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.input {
+  width: 95%;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f1eeee;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  position: relative;
+}
+
+.completed {
+  text-decoration: line-through;
+  margin-left: 40px;
+  color: #333;
+}
+
+ul li::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-image: url(images/uncheck.png);
+  background-size: cover;
+  background-position: center;
+  top: 12px;
+  left: -20px;
+}
+
+.not-completed {
+  margin-left: 40px;
+  color: #333;
+}
+
+ul li .close {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  color: #000;
+  background-color: #f1eeee;
+  padding: 8px 12px;
+
+  /* border-radius: 50%; */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button {
+  padding: 10px;
+  margin-bottom: 0;
+  border: none;
+  background-color: #f1eeee;
+  color: #999;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 40px;
+}
+
+.btn {
+  font-size: 20px;
+}
