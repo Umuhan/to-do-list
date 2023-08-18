@@ -72,7 +72,7 @@ ul li .close {
   color: #000;
   background-color: #f1eeee;
   padding: 8px 12px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   cursor: pointer;
   transition: all 0.3s ease;
 }
