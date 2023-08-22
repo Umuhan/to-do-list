@@ -1,39 +1,89 @@
-// import _ from "lodash";
 import './style.css';
-// import Icon from './images/cheched.jpg';
+// references to the input, button, and task container elements
+const taskInput = document.getElementById('taskInput');
+const addTaskButton = document.getElementById('addTaskButton');
+const taskContainer = document.getElementById('taskContainer');
 
-const tasks = [
-  { description: 'Task 1', completed: false, index: 1 },
-  { description: 'Task 2', completed: true, index: 2 },
-  { description: 'Task 3', completed: false, index: 3 },
-];
+let tasks = [];
 
-function renderTasks() {
-  const listElement = document.querySelector('.list');
-
-  const inputEl = document.createElement('input');
-  inputEl.classList.add('input');
-  inputEl.placeholder = 'Add your task here';
-  listElement.appendChild(inputEl);
-
-  tasks.forEach((task) => {
-    const listItem = document.createElement('li');
-    listItem.textContent = task.description;
-    listItem.classList.add(task.completed ? 'completed' : 'not-completed');
-    listElement.appendChild(listItem);
-
-    const span = document.createElement('div');
-    span.classList.add('close');
-    span.innerHTML = '⋮';
-    listItem.appendChild(span);
-  });
-
-  const btn = document.createElement('button');
-  btn.textContent = 'Clear all completed';
-  btn.classList.add('btn');
-  listElement.appendChild(btn);
+// Function to save tasks to local storage
+function saveTasksToLocalStorage() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderTasks();
+// Function to update the task container
+function updateTaskContainer() {
+  taskContainer.innerHTML = '';
+
+  tasks.forEach((task, index) => {
+    const taskItem = document.createElement('ul');
+    taskItem.classList.add('task-item');
+
+    const taskContent = document.createElement('li');
+    taskContent.textContent = task.description;
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    editButton.classList.add('btn');
+    editButton.addEventListener('click', () => {
+      const newDescription = prompt('Enter a new description for the task:');
+      if (newDescription !== null) {
+        tasks[index].description = newDescription;
+        updateTaskContainer();
+        saveTasksToLocalStorage();
+      }
+    });
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('btn');
+    deleteButton.addEventListener('click', () => {
+      tasks.splice(index, 1);
+      for (let i = 0; i < tasks.length; i += 1) {
+        tasks[i].index = i + 1;
+      }
+      updateTaskContainer();
+      saveTasksToLocalStorage();
+    });
+
+    taskItem.appendChild(taskContent);
+    taskItem.appendChild(editButton);
+    taskItem.appendChild(deleteButton);
+    taskContainer.appendChild(taskItem);
+  });
+}
+
+// Function to add a new task
+function addTask(description) {
+  const newTask = {
+    description,
+    completed: false,
+    index: tasks.length + 1,
+  };
+
+  tasks.push(newTask);
+  updateTaskContainer();
+  saveTasksToLocalStorage();
+}
+
+// Function to load tasks from local storage
+function loadTasksFromLocalStorage() {
+  const storedTasks = localStorage.getItem('tasks');
+  if (storedTasks) {
+    tasks = JSON.parse(storedTasks);
+    updateTaskContainer();
+  }
+}
+
+//  event listener to the "Add Task" button
+addTaskButton.addEventListener('click', () => {
+  const taskText = taskInput.value;
+  if (taskText !== '') {
+    addTask(taskText);
+    taskInput.value = '';
+  }
+});
+
+// Loading tasks from local storage on page load
+window.addEventListener('load', () => {
+  loadTasksFromLocalStorage();
 });
