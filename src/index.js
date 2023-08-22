@@ -1,28 +1,50 @@
-// lacal storage
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+import "./style.css";
+// references to the input, button, and task container elements
+const taskInput = document.getElementById("taskInput");
+const addTaskButton = document.getElementById("addTaskButton");
+const taskContainer = document.getElementById("taskContainer");
 
-// Function to render tasks on the page
-function renderTasks() {
-  const taskList = document.getElementById("taskList");
-  taskList.innerHTML = "";
+let tasks = [];
+
+// Function to update the task container
+function updateTaskContainer() {
+  taskContainer.innerHTML = "";
 
   tasks.forEach((task, index) => {
-    const li = document.createElement("li");
-    li.textContent = `${index + 1}. ${task.description}`;
+    const taskItem = document.createElement("ul");
+    taskItem.classList.add("task-item");
 
+    const taskContent = document.createElement("li");
+    taskContent.textContent = task.description;
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
     editButton.classList.add("btn");
-    editButton.addEventListener("click", () => editTask(index));
+    editButton.addEventListener("click", () => {
+      const newDescription = prompt("Enter a new description for the task:");
+
+      if (newDescription !== null) {
+        tasks[index].description = newDescription;
+        updateTaskContainer();
+        saveTasksToLocalStorage();
+      }
+    });
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.classList.add("btn");
-    deleteButton.addEventListener("click", () => deleteTask(index));
+    deleteButton.addEventListener("click", () => {
+      tasks.splice(index, 1);
+      for (let i = 0; i < tasks.length; i += 1) {
+        tasks[i].index = i + 1;
+      }
+      updateTaskContainer();
+      saveTasksToLocalStorage();
+    });
 
-    li.appendChild(editButton);
-    li.appendChild(deleteButton);
-    taskList.appendChild(li);
+    taskItem.appendChild(taskContent);
+    taskItem.appendChild(editButton);
+    taskItem.appendChild(deleteButton);
+    taskContainer.appendChild(taskItem);
   });
 }
 
@@ -35,50 +57,36 @@ function addTask(description) {
   };
 
   tasks.push(newTask);
-  updateIndexes();
+  updateTaskContainer();
   saveTasksToLocalStorage();
-  renderTasks();
 }
 
-// Function to delete a task
-function deleteTask(index) {
-  tasks.splice(index, 1);
-  updateIndexes();
-  saveTasksToLocalStorage();
-  renderTasks();
-}
-
-// Function to edit a task's description
-function editTask(index) {
-  const newDescription = prompt("Enter a new description for the task:");
-  if (newDescription !== null) {
-    tasks[index].description = newDescription;
-    saveTasksToLocalStorage();
-    renderTasks();
-  }
-}
-
-// Function to update task indexes after delete
-function updateIndexes() {
-  tasks.forEach((task, index) => {
-    task.index = index + 1;
-  });
-}
+function edditTask(index) {}
 
 // Function to save tasks to local storage
 function saveTasksToLocalStorage() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Add event listener for adding tasks
-const addTaskButton = document.getElementById("addTask");
+// Function to load tasks from local storage
+function loadTasksFromLocalStorage() {
+  const storedTasks = localStorage.getItem("tasks");
+  if (storedTasks) {
+    tasks = JSON.parse(storedTasks);
+    updateTaskContainer();
+  }
+}
+
+//  event listener to the "Add Task" button
 addTaskButton.addEventListener("click", () => {
-  const newTaskInput = document.getElementById("newTask");
-  const newTaskDescription = newTaskInput.value.trim();
-  if (newTaskDescription !== "") {
-    addTask(newTaskDescription);
-    newTaskInput.value = "";
+  const taskText = taskInput.value;
+  if (taskText !== "") {
+    addTask(taskText);
+    taskInput.value = "";
   }
 });
 
-renderTasks();
+// Loading tasks from local storage on page load
+window.addEventListener("load", () => {
+  loadTasksFromLocalStorage();
+});
