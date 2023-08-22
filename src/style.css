@@ -28,6 +28,34 @@ h1 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+#taskInput {
+  width: 85%;
+  height: 40px;
+  border-radius: 5px;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background-color: #fdfafa;
+}
+
+#addTaskButton {
+  height: 40px;
+  padding: 5px 5px;
+  border: none;
+  outline: none;
+  background-color: rgb(243, 211, 205);
+  color: #7a6f6f;
+  border-radius: 20%;
+  cursor: pointer;
+
+  /* padding-right: 10px; */
+}
+
+li {
+  padding-left: 10px;
+}
+
 .task-item {
   display: flex;
   justify-content: space-between;
@@ -55,34 +83,6 @@ h1 {
   margin-left: 8px;
   top: 2px;
   left: -20px;
-}
-
-#taskInput {
-  width: 85%;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding-left: 30px;
-  margin-bottom: 10px;
-  border: none;
-  outline: none;
-  background-color: #fdfafa;
-}
-
-#addTaskButton {
-  height: 40px;
-  padding: 5px 5px;
-  border: none;
-  outline: none;
-  background-color: rgb(243, 211, 205);
-  color: #7a6f6f;
-  border-radius: 20%;
-  cursor: pointer;
-  /* padding-right: 10px; */
-}
-
-li {
-  padding-left: 10px;
 }
 
 .btn {
