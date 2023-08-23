@@ -21,7 +21,6 @@ h1 {
 
 .container {
   width: 40%;
-  height: 400px;
   background-color: white;
   margin: 50px auto;
   border-radius: 10px;
@@ -48,8 +47,6 @@ h1 {
   color: #7a6f6f;
   border-radius: 20%;
   cursor: pointer;
-
-  /* padding-right: 10px; */
 }
 
 li {
@@ -71,18 +68,9 @@ li {
   position: relative;
 }
 
-.task-item li::before {
-  content: "";
-  position: absolute;
-  background-image: url(../src/images/uncheck.png);
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  margin-left: 8px;
-  top: 2px;
-  left: -20px;
+.checkbox {
+  color: #555;
+  text-decoration: line-through;
 }
 
 .btn {
@@ -92,4 +80,13 @@ li {
   padding: 10px 10px;
   border-radius: 20%;
   cursor: pointer;
+}
+
+#clearCompletedButton {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  margin-top: 210px;
 }
