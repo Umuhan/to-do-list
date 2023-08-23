@@ -50,7 +50,7 @@ function updateTaskContainer() {
       tasks.splice(index, 1);
       updateTaskIndexes();
       updateTaskContainer();
-      saveTasksToLocalStorage();
+      saveTasksToLocalStorage(tasks);
     });
 
     taskItem.appendChild(taskContent);
@@ -70,7 +70,7 @@ function addTask(description) {
 
   tasks.push(newTask);
   updateTaskContainer();
-  saveTasksToLocalStorage();
+  saveTasksToLocalStorage(tasks);
 }
 
 //  event listener to the "Add Task" button
