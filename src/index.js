@@ -1,14 +1,33 @@
 import './style.css';
-// references to the input, button, and task container elements
+import { updateStatus, clearCompletedTasks } from './modules/app.js';
+import {
+  saveTasksToLocalStorage,
+  loadTasksFromLocalStorage,
+} from './modules/localStorage.js';
+
 const taskInput = document.getElementById('taskInput');
 const addTaskButton = document.getElementById('addTaskButton');
 const taskContainer = document.getElementById('taskContainer');
 
 let tasks = [];
 
-// Function to save tasks to local storage
-function saveTasksToLocalStorage() {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+// event listener to the checkbox
+function createCheckbox(index, completed) {
+  const checkbox = document.createElement('input');
+  checkbox.classList.add('checkbox');
+  checkbox.type = 'checkbox';
+  checkbox.checked = completed;
+
+  checkbox.addEventListener('change', (event) => {
+    updateStatus(tasks, index, event.target.checked);
+  });
+  return checkbox;
+}
+
+function updateTaskIndexes() {
+  for (let i = 0; i < tasks.length; i += 1) {
+    tasks[i].index = i + 1;
+  }
 }
 
 // Function to update the task container
@@ -19,34 +38,23 @@ function updateTaskContainer() {
     const taskItem = document.createElement('ul');
     taskItem.classList.add('task-item');
 
+    const checkbox = createCheckbox(index, task.completed);
+
     const taskContent = document.createElement('li');
     taskContent.textContent = task.description;
-    const editButton = document.createElement('button');
-    editButton.textContent = 'Edit';
-    editButton.classList.add('btn');
-    editButton.addEventListener('click', () => {
-      const newDescription = prompt('Enter a new description for the task:');
-      if (newDescription !== null) {
-        tasks[index].description = newDescription;
-        updateTaskContainer();
-        saveTasksToLocalStorage();
-      }
-    });
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.classList.add('btn');
     deleteButton.addEventListener('click', () => {
       tasks.splice(index, 1);
-      for (let i = 0; i < tasks.length; i += 1) {
-        tasks[i].index = i + 1;
-      }
+      updateTaskIndexes();
       updateTaskContainer();
       saveTasksToLocalStorage();
     });
 
     taskItem.appendChild(taskContent);
-    taskItem.appendChild(editButton);
+    taskItem.insertBefore(checkbox, taskItem.firstChild);
     taskItem.appendChild(deleteButton);
     taskContainer.appendChild(taskItem);
   });
@@ -65,15 +73,6 @@ function addTask(description) {
   saveTasksToLocalStorage();
 }
 
-// Function to load tasks from local storage
-function loadTasksFromLocalStorage() {
-  const storedTasks = localStorage.getItem('tasks');
-  if (storedTasks) {
-    tasks = JSON.parse(storedTasks);
-    updateTaskContainer();
-  }
-}
-
 //  event listener to the "Add Task" button
 addTaskButton.addEventListener('click', () => {
   const taskText = taskInput.value;
@@ -83,7 +82,17 @@ addTaskButton.addEventListener('click', () => {
   }
 });
 
+saveTasksToLocalStorage(tasks);
+
+// event listener to the "Clear Completed Tasks" button
+const clearCompletedButton = document.getElementById('clearCompletedButton');
+clearCompletedButton.addEventListener('click', () => {
+  tasks = clearCompletedTasks(tasks);
+  updateTaskIndexes();
+  updateTaskContainer();
+});
+
 // Loading tasks from local storage on page load
 window.addEventListener('load', () => {
-  loadTasksFromLocalStorage();
+  loadTasksFromLocalStorage(tasks); // Pass the tasks array as an argument
 });
