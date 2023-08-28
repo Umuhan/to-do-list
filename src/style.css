@@ -13,6 +13,7 @@ body {
 }
 
 h1 {
+  font-family: "Roboto", sans-serif;
   text-align: center;
   padding-top: 30px;
   font-size: 2rem;
