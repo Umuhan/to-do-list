@@ -1,5 +1,5 @@
 const deleteTask = (tasks, indexToDelete) => {
-  taskArr = tasks.filter((task, index) => index !== indexToDelete);
+  const taskArr = tasks.filter((task, index) => index !== indexToDelete);
 
   return taskArr;
 };
