@@ -2,8 +2,6 @@ const { before } = require("lodash");
 const addTask = require("./_mock/addTask");
 
 describe("Adding new tasks", () => {
-  // beforeEach(() => addTask());
-
   test("addTask function exists", () => {
     expect(typeof addTask).toEqual("function");
   });
