@@ -1,6 +1,6 @@
 function createEditButton(id) {
   return {
-    textContent: "Edit",
+    textContent: 'Edit',
     dataset: { id },
   };
 }

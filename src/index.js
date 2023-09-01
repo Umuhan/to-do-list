@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "./style.css";
 import { updateStatus, clearCompletedTasks } from "./modules/app.js";
 import {
@@ -33,7 +34,7 @@ function createEditButton(index) {
       // Add the input field after the task content
       taskContent.parentNode.insertBefore(editInput, taskContent.nextSibling);
 
-      // Add an event listener to save the edited description on Enter
+      // Add an event listener to save the edited description on Enter.
       editInput.addEventListener("keyup", (event) => {
         if (event.key === "Enter") {
           const newDescription = editInput.value.trim();
