@@ -1,8 +1,5 @@
 const clearCompletedTasks = require('./_mock/clearAll.js');
 
-// const tasks = [];
-// const updatedTasks = tasks.filter((task) => !task.completed);
-
 describe('clearCompletedTasks', () => {
   test('Remove completed tasks from the array', () => {
     const tasks = [
